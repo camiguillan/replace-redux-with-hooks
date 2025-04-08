@@ -7,7 +7,7 @@ import { useStore } from '../../hooks-store/store';
 
 
 const ProductItem = props => {
-  const [state, dispatch] =  useStore();
+  const [state, dispatch] =  useStore(false);
   // const {toggleFavFunction} = useContext(ProductContext)
 
 

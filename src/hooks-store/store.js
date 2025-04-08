@@ -7,7 +7,7 @@ let listeners = []; //to listen to component changes across the app
 let actions = {}; 
 
 //create a custome hook 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
     const setStateValue = useState(globalState)[1] //makes components to re render 
 
     const dispatch = (actionId, payload) =>{ // payload = prod id 
@@ -20,14 +20,16 @@ export const useStore = () => {
     }
 
     useEffect(() => {
-        listeners.push(setStateValue);
+        if(shouldListen){
+            listeners.push(setStateValue);
+        }
 
     return () => {
 
         listeners = listeners.filter(list => list !== setStateValue)
 
     }//this is ran whenever the component is removed from the dom 
-    }, [setStateValue]) //only runs for the component that uses the hook when the component renders 
+    }, [setStateValue, shouldListen]) //only runs for the component that uses the hook when the component renders 
 
     return [globalState, dispatch]
 }
