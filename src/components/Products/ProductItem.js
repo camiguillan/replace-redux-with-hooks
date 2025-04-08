@@ -3,16 +3,13 @@ import { ProductContext } from '../../context/products-context';
 
 import Card from '../UI/Card';
 import './ProductItem.css';
+import { useStore } from '../../hooks-store/store';
 
 
 const ProductItem = props => {
+  const [state, dispatch] =  useStore();
+  // const {toggleFavFunction} = useContext(ProductContext)
 
-  const {toggleFavFunction} = useContext(ProductContext)
-
-
-  const toggleFavHandler = () => {
-    // dispatch(toggleFav(props.id));
-  };
 
   return (
     <Card style={{ marginBottom: '1rem' }}>
@@ -21,7 +18,7 @@ const ProductItem = props => {
         <p>{props.description}</p>
         <button
           className={!props.isFav ? 'button-outline' : ''}
-          onClick={() => toggleFavFunction(props.id)}
+          onClick={() => dispatch('TOGGLE_FAV', props.id)}
         >
           {props.isFav ? 'Un-Favorite' : 'Favorite'}
         </button>
